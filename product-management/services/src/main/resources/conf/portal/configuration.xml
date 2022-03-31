@@ -4,23 +4,23 @@
                xmlns="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd">
 
     <component>
-        <key>org.exoplatform.training.Services.ProductInterface</key>
-        <type>org.exoplatform.training.Services.ProdcutService</type>
+        <key>org.exoplatform.training.Services.ExoerServiceInterface</key>
+        <type>org.exoplatform.training.Services.ExoerService</type>
     </component>
     <component>
-        <type>org.exoplatform.training.dao.ProductDAO</type>
+        <type>org.exoplatform.training.dao.ExoersDAO</type>
     </component>
 
     <component>
-        <key>org.exoplatform.training.Services.ProdcutServiceRest</key>
-        <type>org.exoplatform.training.Services.ProdcutServiceRest</type>
+        <key>org.exoplatform.training.Services.ExoerServiceRest</key>
+        <type>org.exoplatform.training.Services.ExoerServiceRest</type>
     </component>
     <component>
-        <key>org.exoplatform.training.plugins.ProductPluginInterface</key>
-        <type>org.exoplatform.training.plugins.ProductServiceImpl</type>
+        <key>org.exoplatform.training.plugins.ExoerPluginInterface</key>
+        <type>org.exoplatform.training.plugins.ExoServiceImpl</type>
     </component>
     <component>
-        <type>org.exoplatform.training.plugins.StartableProductService</type>
+        <type>org.exoplatform.training.plugins.StartableExoerService</type>
     </component>
   <external-component-plugins>
         <target-component>org.exoplatform.commons.api.persistence.DataInitializer</target-component>
@@ -39,7 +39,7 @@
     </external-component-plugins>
 
     <external-component-plugins>
-        <target-component>org.exoplatform.training.plugins.ProductPluginInterface</target-component>
+        <target-component>org.exoplatform.training.plugins.ExoerPluginInterface</target-component>
         <component-plugin>
             <name>UpperCase plugin</name>
             <set-method>addPlugins</set-method>

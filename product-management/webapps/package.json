@@ -4,7 +4,7 @@
   "description": "eXo portlet using VueJS with webpack",
   "repository": {
     "type": "git",
-    "url": "https://github.com/exo-samples/docs-samples"
+    "url": "https://github.com/ArfaouiMohamedAmine/fullprojectTrainingWithBackAndFront.git"
   },
   "scripts": {
     "start": "webpack --config webpack.dev.js --mode development",

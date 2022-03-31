@@ -6,8 +6,7 @@ let config = {
   // set the entry point of the application
   // can use multiple entry
   entry: {
-    sample: './src/main/webapp/vue-app/main.js',
-    empty: './src/main/webapp/vue-app/empty.js'
+    sample: './src/main/webapp/vue-app/main.js'
   },
   output: {
     filename: 'js/[name].bundle.js',

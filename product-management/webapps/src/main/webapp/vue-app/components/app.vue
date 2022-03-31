@@ -22,71 +22,76 @@
         disable-pull-to-refresh>
         <template slot="title">
           <span class="text-header-title">
-            Add product 
+            Add Exoer 
           </span>
         </template>
         <template slot="content">
-          <v-form ref="form" @submit.prevent >
-            <v-container>
-              <v-row>
-                <v-col
-                  cols="6" 
-                
-                  md="12"
-                >
-                  <v-text-field
-                    v-model="name"
-                    :rules="nameRules"
-               
-                    label="name product"
-                    required
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="6" md="12">
-                  <v-textarea
-                    v-model="description"
-                    color="teal"
-                  >
-                    <template v-slot:label>
-                      <div>
-                        Bio <small>(optional)</small>
-                      </div>
-                    </template>
-                  </v-textarea>
-                </v-col>
-        
-         
-              </v-row>
-              <v-row>
-                <v-col cols="1" md="12">
-                  <v-text-field
-                    v-model="price"
-                    label="Price"
-                    prefix="DT"
-
-                  ></v-text-field>
-              
-                </v-col>
-                <v-col cols="6" md="12">
-                  <v-file-input
-                    v-model="image"
-                    counter
-                    show-size
-                    truncate-length="15"
-                  ></v-file-input>
-                </v-col>
-              </v-row>
-              <div
-                @click="submit"
-              >Envoyer</div>
-            </v-container>
-          </v-form>
+          content 
         </template>
       </exo-drawer>
+      <v-form>
+        <v-container>
+          <v-row>
+            <v-col
+              cols="6"
+              md="4"
+            >
+              <v-text-field
+                v-model="name"
+                :rules="nameRules"
+               
+                label="name exoer"
+                required
+              ></v-text-field>
+            </v-col>
+
+            <v-col cols="6">
+              <v-textarea
+                v-model="functionn"
+                color="teal"
+              >
+                <template v-slot:label>
+                  <div>
+                    date of birth <v-menu
+                      ref="menuRef"
+                      :close-on-content-click="false"
+                      v-model="menuValue"
+                      :nudge-right="40"
+                      lazy
+                      transition="scale-transition"
+                      offset-y
+                      full-width
+                      min-width="290px"
+                    >
+                      <v-text-field
+                        slot="activator"
+                        v-model="dateValue"
+                        label="Birthday date"
+                        prepend-icon="event"
+                        readonly
+                      ></v-text-field>
+                      <v-date-picker
+                        ref="picker"
+                        v-model="dateValue"
+                        :max="new Date().toISOString().substr(0, 10)"
+                        min="1950-01-01"
+                        @change="$refs.menu.save(dateValue)"
+                      ></v-date-picker>
+                    </v-menu>
+                  </div>
+                </template>
+              </v-textarea>
+            </v-col>
+          </v-row>
+          <div
+            @click="checkForm()"
+          >Envoyer</div>
+        </v-container>
+      </v-form>
+  
       <v-row>
         <v-col
-          v-for="item in items"
+          v-for="item in items['exoer']"
           :key="item.id"
         >
           <v-card 
@@ -98,16 +103,11 @@
               <v-list-item-avatar color="grey"/>
               <v-list-item-content>
                 <v-list-item-title class="headline">{{ item.name }}</v-list-item-title>
-                <v-list-item-subtitle> {{ item.price }} DT</v-list-item-subtitle>
+                <v-list-item-subtitle> {{ item.functionn }} DT</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-    
-            <v-img
-              :src="'https://www.akamai.com/content/dam/site/im-demo/'+ item.img"
-              height="194"/>
-    
             <v-card-text >
-              {{ item.description }}
+              {{ item.functionn }}
             </v-card-text>
     
             <v-card-actions>
@@ -134,7 +134,7 @@
                       dark
                     >{{ datas.title }}</v-toolbar>
                     <v-card-text>
-                      <div class="text-h4 pa-12">{{ datas.description }}</div>
+                      <div class="text-h4 pa-12">{{ datas.functionn }}</div>
                     </v-card-text>
                     <v-card-actions class="justify-end">
                       <v-btn
@@ -147,9 +147,8 @@
               </v-dialog>
               <v-btn
                 text
-                color="deep-purple accent-4"
-                @click="deleteProduct(item.id)" >
-                Delete 
+                color="deep-purple accent-4">
+                Bookmark
               </v-btn>
               <div class="flex-grow-1"></div>
               <v-btn icon>
@@ -178,63 +177,47 @@ export default {
       datas  : {},
       items: [],
       name : null , 
-      description : null , 
-      price : null  ,
-      image : null ,
-      isAdded : null
+      functionn : null , 
+      dateOfBirth : null  ,
+
     };
   },
-  computed: {},
+  computed: {
+    kudosReceiver () {
+      return {
+        receiverId: this.kudosToSend && this.kudosToSend.id,
+        avatar: this.kudosToSend && this.kudosToSend.avatar,
+        profileUrl: this.kudosToSend && this.kudosToSend.profileUrl,
+        fullName: this.kudosToSend && this.kudosToSend.receiverFullName
+      };
+    }
+  },
+  
   mounted () {
     axios
-      .get('http://localhost:8080/portal/rest/v1/products')
+      .get('http://localhost:8080/portal/rest/v1/exoers')
       .then(response => {
         this.items = response.data;
       });
     this.$refs.testDrawer.drawer = false ; 
   },
   methods:{
-
-    deleteProduct(id){
-      axios.post(`http://localhost:8080/portal/rest/v1/products/deleteProduct/${id}`)
-        .then(res => {
-          this.items = res ; 
-          axios
-            .get('http://localhost:8080/portal/rest/v1/products')
-            .then(response => {
-              this.items = response.data;
-            });
-        }); 
-    },
     details(item)
     {
       this.datas = item ; 
     },
+    checkForm() {
+      const product  = {
+        id : 1 , 
+        name: this.name , 
+        description : this.functionn , 
+      };
+      axios.post('http://localhost:8080/portal/rest/v1/exoers', product)
+        .then(response => this.isAdded = response.data);
+    },
     open()
     {
       this.$refs.testDrawer.open();
-    },
-    refresh(){
-      axios
-        .get('http://localhost:8080/portal/rest/v1/products')
-        .then(response => {
-          this.items = response.data;
-        });
-      this.$refs.testDrawer.drawer = false  ; 
-      this.$refs.form.reset();
-    },
-    submit(){
-      const product  = {
-        name: this.name , 
-        price : this.price , 
-        description : this.description , 
-        img : 'perceptual-standard.jpg'
-      };
-      axios.post('http://localhost:8080/portal/rest/v1/products', product)
-        .then(response => {
-          this.items = response.data ; 
-          this.refresh();
-        }); 
     }
   }
 };

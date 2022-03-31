@@ -1,7 +1,7 @@
 package org.exoplatform.training.plugins;
 
-public interface ProductPluginInterface {
+public interface ExoerPluginInterface {
     String displayText(String text);
     public void addPlugins(textUpperCasePlugin text );
-   // void  printRandonQuote();
+
 }
