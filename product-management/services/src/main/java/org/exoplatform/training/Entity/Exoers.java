@@ -3,7 +3,6 @@ package org.exoplatform.training.Entity;
 import org.exoplatform.commons.api.persistence.ExoEntity;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @ExoEntity
 @Entity
@@ -18,24 +17,24 @@ public class Exoers {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "finction")
-    private String function;
+    @Column(name = "functionn")
+    private String functionn;
 
     @Column(name = "dateOfBirth")
-    private Date dateOfBirth;
+    private String dateOfBirth;
 
     public Exoers() {}
 
-    public Exoers(Long id, String name, String function, Date dateOfBirth) {
+    public Exoers(Long id, String name, String functionn, String dateOfBirth) {
         this.id = id;
         this.name = name;
-        this.function = function;
+        this.functionn = functionn;
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Exoers(String name, String function, Date dateOfBirth) {
+    public Exoers(String name, String functionn, String dateOfBirth) {
         this.name = name;
-        this.function = function;
+        this.functionn = functionn;
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -56,18 +55,18 @@ public class Exoers {
     }
 
     public String getFunction() {
-        return function;
+        return functionn;
     }
 
-    public void setFunction(String function) {
-        this.function = function;
+    public void setFunction(String functionn) {
+        this.functionn = functionn;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 }

@@ -1,7 +1,6 @@
 package org.exoplatform.training.Services;
 
 import java.util.List;
-import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
@@ -47,7 +46,7 @@ public class ExoerServiceRest implements ResourceContainer {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-  public Response addProduct(Exoers exoers ) {
+  public Response addExoer(Exoers exoers ) {
     
     JSONObject jsonObject = new JSONObject();
 
@@ -56,7 +55,7 @@ public class ExoerServiceRest implements ResourceContainer {
         Exoers a = exoerService.addExoer(exoers);
 
         jsonObject.put("name", a.getName());
-        jsonObject.put("function", a.getFunction());
+        jsonObject.put("functionn", a.getFunction());
         jsonObject.put("dateOfBirth", a.getDateOfBirth());
 
     } catch (Exception e) {

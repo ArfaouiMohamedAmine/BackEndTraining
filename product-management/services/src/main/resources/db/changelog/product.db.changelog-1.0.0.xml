@@ -30,14 +30,14 @@
     <property name="now" value="CURRENT_TIMESTAMP" dbms="mssql"/>
 
     <changeSet author="exo-exoer" id="1.0.0-1">
-        <createTable tableName="EXOERS">
+        <createTable tableName="Exoers">
             <column name="id" type="BIGINT" autoIncrement="${autoIncrement}" startWith="1">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EXOER_ENTITY"></constraints>
             </column>
             <column name="name" type="NVARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="functions" type="NVARCHAR(50)">
+            <column name="functionn" type="NVARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="dateOfBirth" type="date">
@@ -47,5 +47,18 @@
         <modifySql dbms="mysql">
             <append value=" ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci"/>
         </modifySql>
+    </changeSet>
+    <changeSet  author="exo-exoer"  id="1.0.0-2">
+        <modifyDataType
+                         columnName="dateOfBirth"
+                         newDataType="NVARCHAR(50)"
+                         schemaName="public"
+                         tableName="Exoers"/>
+    </changeSet>
+    <changeSet  author="exo-exoer"  id="1.0.0-3">
+        <renameTable
+                      newTableName="EXOERS"
+                      oldTableName="Exoers"
+                      schemaName="public"/>
     </changeSet>
 </databaseChangeLog>

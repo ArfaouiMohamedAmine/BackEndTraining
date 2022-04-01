@@ -3,18 +3,17 @@ package org.exoplatform.training.dto;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Date;
 
 public class ExoersDTO {
 
         private Long id;
         private String name;
-        private String function;
-        private Date dateOfBirth;
+        private String functionn;
+        private String dateOfBirth;
         public ExoersDTO() {}
-        public ExoersDTO(String name, String function, Date dateOfBirth) {
+        public ExoersDTO(String name, String functionn, String dateOfBirth) {
             this.name = name;
-            this.function = function;
+            this.functionn = functionn;
             this.dateOfBirth = dateOfBirth;
         }
         public Long getId() {
@@ -30,15 +29,15 @@ public class ExoersDTO {
             this.name = name;
         }
         public String getFunction() {
-            return function;
+            return functionn;
         }
-        public void setFunction(String function) {
-            this.function = function;
+        public void setFunction(String functionn) {
+            this.functionn = functionn;
         }
-        public Date getDateOfBirth() {
+        public String getDateOfBirth() {
             return dateOfBirth;
         }
-        public void setDateOfBirth(Date dateOfBirth) {
+        public void setDateOfBirth(String dateOfBirth) {
             this.dateOfBirth = dateOfBirth;
         }
     public JSONObject toJSONObject (){
@@ -47,7 +46,7 @@ public class ExoersDTO {
         try {
             jsonObject.put("id", id);
             jsonObject.put("name", name);
-            jsonObject.put("function", function);
+            jsonObject.put("functionn", functionn);
             jsonObject.put("dateOfBirth", dateOfBirth);
         } catch (JSONException e) {
             e.printStackTrace();
