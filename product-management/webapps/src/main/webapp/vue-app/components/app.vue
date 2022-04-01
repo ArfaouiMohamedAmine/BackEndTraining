@@ -50,42 +50,13 @@
                 v-model="functionn"
                 color="teal"
               >
-                <template v-slot:label>
-                  <div>
-                    date of birth <v-menu
-                      ref="menuRef"
-                      :close-on-content-click="false"
-                      v-model="menuValue"
-                      :nudge-right="40"
-                      lazy
-                      transition="scale-transition"
-                      offset-y
-                      full-width
-                      min-width="290px"
-                    >
-                      <v-text-field
-                        slot="activator"
-                        v-model="dateValue"
-                        label="Birthday date"
-                        prepend-icon="event"
-                        readonly
-                      ></v-text-field>
-                      <v-date-picker
-                        ref="picker"
-                        v-model="dateValue"
-                        :max="new Date().toISOString().substr(0, 10)"
-                        min="1950-01-01"
-                        @change="$refs.menu.save(dateValue)"
-                      ></v-date-picker>
-                    </v-menu>
-                  </div>
-                </template>
               </v-textarea>
             </v-col>
+            <v-col>   <v-date-picker v-model="dateOfBirth" :landscape="true" :reactive="true"></v-date-picker></v-col>
           </v-row>
-          <div
+          <v-btn
             @click="checkForm()"
-          >Envoyer</div>
+          >Envoyer</v-btn>
         </v-container>
       </v-form>
   
@@ -210,7 +181,8 @@ export default {
       const product  = {
         id : 1 , 
         name: this.name , 
-        description : this.functionn , 
+        dateOfBirth: this.dateOfBirth,
+        functionn : this.functionn , 
       };
       axios.post('http://localhost:8080/portal/rest/v1/exoers', product)
         .then(response => this.isAdded = response.data);

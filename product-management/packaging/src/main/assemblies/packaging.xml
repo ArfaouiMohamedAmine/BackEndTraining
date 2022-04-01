@@ -34,7 +34,6 @@
       <includes>
         <include>org.example:vuetify-webpack-sample</include>
         <include>org.example:training-services</include>
-         <include>org.example:training-service-w8</include>
       </includes>
     </dependencySet>
   </dependencySets>

@@ -15,13 +15,6 @@
         <key>org.exoplatform.training.Services.ExoerServiceRest</key>
         <type>org.exoplatform.training.Services.ExoerServiceRest</type>
     </component>
-    <component>
-        <key>org.exoplatform.training.plugins.ExoerPluginInterface</key>
-        <type>org.exoplatform.training.plugins.ExoServiceImpl</type>
-    </component>
-    <component>
-        <type>org.exoplatform.training.plugins.StartableExoerService</type>
-    </component>
   <external-component-plugins>
         <target-component>org.exoplatform.commons.api.persistence.DataInitializer</target-component>
         <component-plugin>
@@ -36,74 +29,6 @@
                 </values-param>
             </init-params>
         </component-plugin>
-    </external-component-plugins>
-
-    <external-component-plugins>
-        <target-component>org.exoplatform.training.plugins.ExoerPluginInterface</target-component>
-        <component-plugin>
-            <name>UpperCase plugin</name>
-            <set-method>addPlugins</set-method>
-            <type>org.exoplatform.training.plugins.UpperCasePlugin</type>
-        </component-plugin>
-    </external-component-plugins>
-
-    <external-component-plugins>
-        <target-component>org.exo.training.TextService</target-component>
-        <component-plugin>
-            <name>beautify plugin</name>
-            <set-method>addTextPlugin</set-method>
-            <type>org.exoplatform.training.plugins.BeautifyProduct</type>
-        </component-plugin>
-    </external-component-plugins>
-
-    <external-component-plugins>
-        <target-component>org.exoplatform.services.listener.ListenerService</target-component>
-        <component-plugin>
-            <name>product-added-success</name>
-            <set-method>addListener</set-method>
-            <type>org.exoplatform.training.listeners.ProductListeners</type>
-        </component-plugin>
-    </external-component-plugins>
-
-      <external-component-plugins>
-        <target-component>org.exoplatform.services.scheduler.JobSchedulerService</target-component>
-          <component-plugin>
-            <name>QuotePrinterJob</name>
-            <set-method>addPeriodJob</set-method>
-            <type>org.exoplatform.services.scheduler.PeriodJob</type>
-            <description>Job to print random quotes</description>
-            <init-params>
-                <properties-param>
-                    <name>job.info</name>
-                    <description>details of the execution of the Quotes printer job</description>
-                    <property name="jobName" value="QuotePrinter"/>
-                    <property name="groupName" value="QuotePrinters"/>
-                    <property name="job" value="org.exoplatform.training.job.addPeriodJobProduct"/>
-                    <property name="repeatCount" value="0"/>
-                    <property name="period" value="${exo.training.job.period:30000}"/>
-                    <property name="startTime" value="+15000"/>
-                    <property name="endTime" value=""/>
-                </properties-param>
-            </init-params>
-          </component-plugin>
-         <!-- <component-plugin>
-              <name>CronJob Plugin</name>
-              <set-method>addCronJob</set-method>
-              <type>org.exoplatform.services.scheduler.CronJob</type>
-              <description>cron job configuration</description>
-              <init-params>
-                  <properties-param>
-                      <name>cronjob.info</name>
-                      <description>dumb job executed by cron expression</description>
-                      <property name="jobName" value="DumbJob"/>
-                      <property name="groupName" value="DumbJobGroup"/>
-                      <property name="job" value="org.exoplatform.training.job.addPeriodJobProduct"/>
-                      &lt;!&ndash; The job will be performed at 10:15am every day &ndash;&gt;
-                      <property name="expression" value="* * * 2 5 ?"/>
-                  </properties-param>
-              </init-params>
-          </component-plugin>-->
-
     </external-component-plugins>
 </configuration>
 

@@ -12,10 +12,12 @@ import org.json.JSONObject;
 import org.exoplatform.services.log.Log;
 import org.exoplatform.services.log.ExoLogger;
 @Path("/v1/exoers")
-@RolesAllowed("users")
 public class ExoerServiceRest implements ResourceContainer {
-  
-  ExoerService exoerService  ;
+
+    public ExoerServiceRest() {
+    }
+
+    ExoerService exoerService  ;
   private static Log log =  ExoLogger.getLogger(ExoerServiceRest.class);
   public ExoerServiceRest(ExoerService exoerService)
   {
@@ -24,7 +26,6 @@ public class ExoerServiceRest implements ResourceContainer {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  @RolesAllowed("users")
   public Response getExoers() {
     
     JSONArray jsonArray = new JSONArray();

@@ -30,14 +30,14 @@
     <property name="now" value="CURRENT_TIMESTAMP" dbms="mssql"/>
 
     <changeSet author="exo-exoer" id="1.0.0-1">
-        <createTable tableName="Exoers">
+        <createTable tableName="EXOERS">
             <column name="id" type="BIGINT" autoIncrement="${autoIncrement}" startWith="1">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EXOER_ENTITY"></constraints>
             </column>
             <column name="name" type="NVARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="function" type="NVARCHAR(50)">
+            <column name="functions" type="NVARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="dateOfBirth" type="date">
