@@ -9,7 +9,7 @@
       <v-btn
         color="pink"
         dark
-        @click="open()"
+        @click="open(),getAllData()"
       >
         Open 
       </v-btn>
@@ -21,9 +21,9 @@
         right
         disable-pull-to-refresh>
         <template slot="title">
-          <span class="text-header-title">
+          <v-btn class="text-header-title" @click="close()">
             Add Exoer 
-          </span>
+          </v-btn>
         </template>
         <template slot="content">
           <v-row>
@@ -36,7 +36,8 @@
                 <v-list-item-avatar color="grey"/>
                 <v-list-item-content>
                   <v-list-item-title class="headline">{{ item.name }}</v-list-item-title>
-                  <v-list-item-subtitle> {{ item.functionn }} DT</v-list-item-subtitle>
+                  <v-list-item> {{ item.functionn }} DT</v-list-item>
+                  <v-list-item> {{ item.dateOfBirths }} </v-list-item>
                 </v-list-item-content>
               </v-list-item>
 
@@ -117,6 +118,11 @@ export default {
     this.$refs.testDrawer.drawer = false ; 
   },
   methods:{
+    getAllData(){    axios
+      .get('http://localhost:8080/portal/rest/v1/exoers')
+      .then(response => {
+        this.items = response.data;
+      });},
     details(item)
     {
       this.datas = item ; 
@@ -133,7 +139,13 @@ export default {
     },
     open()
     {
+      
       this.$refs.testDrawer.open();
+    },
+    close()
+    {
+      
+      this.$refs.testDrawer.close();
     }
   }
 };
