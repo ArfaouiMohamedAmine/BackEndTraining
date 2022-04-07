@@ -10,11 +10,21 @@
     <component>
         <type>org.exoplatform.training.dao.ExoersDAO</type>
     </component>
-
     <component>
         <key>org.exoplatform.training.Services.ExoerServiceRest</key>
         <type>org.exoplatform.training.Services.ExoerServiceRest</type>
     </component>
+    <component>
+    <key>org.exoplatform.training.Services.BikesServiceInterface</key>
+    <type>org.exoplatform.training.Services.BikesService</type>
+     </component>
+     <component>
+        <type>org.exoplatform.training.dao.BikesDAO</type>
+     </component>
+     <component>
+        <key>org.exoplatform.training.Services.BikesServiceRest</key>
+        <type>org.exoplatform.training.Services.BikesServiceRest</type>
+     </component>
   <external-component-plugins>
         <target-component>org.exoplatform.commons.api.persistence.DataInitializer</target-component>
         <component-plugin>

@@ -9,7 +9,7 @@ import org.exoplatform.training.dao.ExoersDAO;
 
 import java.util.List;
 
-public class ExoerService  implements ResourceContainer, ExoerServiceInterface {
+public class ExoerService implements ResourceContainer, ExoerServiceInterface {
     private ExoersDAO eggzoodao ;
 
     private static Log log =  ExoLogger.getLogger(ExoerServiceRest.class);
@@ -23,9 +23,13 @@ public class ExoerService  implements ResourceContainer, ExoerServiceInterface {
         return this.eggzoodao.findAll();
     }
     @Override
+    public Exoers getOneExoerById(long id)  {
+        return this.eggzoodao.find(id);
+    }
+    @Override
     public Exoers addExoer(Exoers a) {
 
-        Exoers eggz = new Exoers(a.getName(),a.getFunction(),a.getDateOfBirth());
+        Exoers eggz = new Exoers(a.getName(),a.getFunctionn(),a.getDateOfBirth());
         Exoers res= null;
         try {
             res = eggzoodao.create(eggz);

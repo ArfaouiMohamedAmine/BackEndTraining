@@ -6,47 +6,75 @@
     class="VuetifyApp"
     flat>
     <main >
-      <v-btn
-        color="pink"
-        dark
-        @click="open(),getAllData()"
-      >
-        Open 
-      </v-btn>
       <exo-drawer
         id="activityKudosDrawer"
         ref="testDrawer"
-        width="500px"
         hide-actions
         right
         disable-pull-to-refresh>
         <template slot="title">
+          <div class="mx-2"></div>
+          <v-btn color="red lighten-1" rounded>
+            <v-icon>mdi-cached</v-icon>
+          </v-btn>    
           <v-btn class="text-header-title" @click="close()">
             Add Exoer 
           </v-btn>
-        </template>
+          <v-col
+            cols="12"
+            sm="6"
+            md="3"
+          >
+            <v-text-field
+              v-model="searchTf"
+              label="Solo"
+              placeholder="Search"
+              solo
+            ></v-text-field>
+        </v-col></template>
         <template slot="content">
-          <v-row>
-            <v-col
-              v-for="item in items"
-              :key="item.id"
-            >
-
-              <v-list-item>
-                <v-list-item-avatar color="grey"/>
-                <v-list-item-content>
-                  <v-list-item-title class="headline">{{ item.name }}</v-list-item-title>
-                  <v-list-item> {{ item.functionn }} DT</v-list-item>
-                  <v-list-item> {{ item.dateOfBirths }} </v-list-item>
-                </v-list-item-content>
-              </v-list-item>
-
-        
-            </v-col>
+          <v-row v-for="item in items"
+                 :key="item.id">
+            <v-list-item>
+              <v-list-item-avatar/>
+              <v-list-item-content>
+                <v-list-item-title class="headline">{{ item.name }}</v-list-item-title>
+                <v-list-item class="headline">{{ item.id }}</v-list-item>
+                <v-row
+                  align="center"
+                  justify="center"
+                >
+                  <div class="mx-2"></div>
+                  <v-icon></v-icon>
+                  <div class="mx-2"></div>
+                  <v-btn
+                    color="red lighten-1"
+                    depressed
+                    @click="deleteExoer(item.id)"
+                  >
+                    <v-icon left>
+                      mdi-cancel
+                    </v-icon>
+                    Delete
+                  </v-btn>
+                  <div class="mx-2"></div>
+                  <v-btn
+                    color="red lighten-1"
+                    depressed
+                    @click="sshow(), close();"
+                  >
+                    <v-icon left>
+                      mdi-edit
+                    </v-icon>
+                    Update
+                  </v-btn>
+                </v-row>
+              </v-list-item-content>
+            </v-list-item>
           </v-row>
         </template>
       </exo-drawer>
-      <v-form>
+      <v-form v-show="!show">
         <v-container>
           <v-row>
             <v-col
@@ -55,13 +83,11 @@
             >
               <v-text-field
                 v-model="name"
-                :rules="nameRules"
-               
+                :rules="nameRules"  
                 label="name exoer"
                 required
               ></v-text-field>
             </v-col>
-
             <v-col cols="6">
               <v-text-field
                 v-model="functionn"
@@ -71,31 +97,56 @@
             </v-col>
             <v-col><v-text-field v-model="dateOfBirth"></v-text-field></v-col>
           </v-row>
-          <v-btn
-            @click="checkForm()"
-          >Envoyer</v-btn>
+          <div class="my-2">
+            <v-btn
+              color="success"
+              fab
+              x-large
+              dark
+              @click="open(),getAllData()"
+            >
+              <v-icon>mdi-account-circle</v-icon>
+            </v-btn>
+          </div>
+          <div class="my-2">
+            <v-btn
+              color="success"
+              fab
+              x-large
+              dark
+              @click="checkForm()"
+            >
+              <v-icon>mdi-domain</v-icon>
+            </v-btn>
+          </div>
         </v-container>
       </v-form>
-  
-      
-    
     </main>
+    <v-row>
+      <v-col>
+        <EditPop v-show="saveEditBool" :save-edit-bool="show" @getSaveBool="saveEditBool"/>    
+      </v-col>
+    </v-row>
   </v-app>
 </template>
 <script>
 import axios from 'axios';
-
+import EditPop from './edit.vue';
 export default {
   name:'FirsPage',
+  components: { EditPop },
   data: function() {
     return {
       errors: [],
       datas  : {},
       items: [],
+      idEx: null,
       name : null , 
       functionn : null , 
       dateOfBirth : null  ,
-
+      show: false,
+      getSaveBool:false,
+      searchTf: '',
     };
   },
   computed: {
@@ -106,23 +157,32 @@ export default {
         profileUrl: this.kudosToSend && this.kudosToSend.profileUrl,
         fullName: this.kudosToSend && this.kudosToSend.receiverFullName
       };
+    },
+  },
+  watch:{
+    searchTf(newVal,oldVal){
+      this.getOneData(newVal);
+      console.log('oldVal',oldVal);
     }
   },
-  
-  mounted () {
-    axios
-      .get('http://localhost:8080/portal/rest/v1/exoers')
-      .then(response => {
-        this.items = response.data;
-      });
-    this.$refs.testDrawer.drawer = false ; 
-  },
   methods:{
+    sshow(show){
+      this.show = !show;
+    },
     getAllData(){    axios
       .get('http://localhost:8080/portal/rest/v1/exoers')
       .then(response => {
         this.items = response.data;
       });},
+    getOneData(id){    axios
+      .get(`http://localhost:8080/portal/rest/v1/exoers/getOneExoerById/${id}`)
+      .then(response => {
+        this.items = response.data;
+        
+
+      });
+    console.log(id);
+    },
     details(item)
     {
       this.datas = item ; 
@@ -137,6 +197,15 @@ export default {
       axios.post('http://localhost:8080/portal/rest/v1/exoers', exoer)
       ;
     },
+
+    deleteExoer(idEx){
+      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+      console.log(idEx);
+      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+      axios.post(`http://localhost:8080/portal/rest/v1/exoers/deleteExoers/${idEx}`);
+      this.$refs.testDrawer.close();
+    },
+
     open()
     {
       

@@ -54,11 +54,11 @@ public class Exoers {
         this.name = name;
     }
 
-    public String getFunction() {
+    public String getFunctionn() {
         return functionn;
     }
 
-    public void setFunction(String functionn) {
+    public void setFunctionn(String functionn) {
         this.functionn = functionn;
     }
 

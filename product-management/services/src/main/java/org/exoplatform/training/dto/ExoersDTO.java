@@ -28,10 +28,10 @@ public class ExoersDTO {
         public void setName(String name) {
             this.name = name;
         }
-        public String getFunction() {
+        public String getFunctionn() {
             return functionn;
         }
-        public void setFunction(String functionn) {
+        public void setFunctionn(String functionn) {
             this.functionn = functionn;
         }
         public String getDateOfBirth() {

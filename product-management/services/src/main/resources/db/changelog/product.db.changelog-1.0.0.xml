@@ -29,10 +29,10 @@
     <property name="now" value="sysdate" dbms="oracle"/>
     <property name="now" value="CURRENT_TIMESTAMP" dbms="mssql"/>
 
-    <changeSet author="exo-exoer" id="1.0.0-1">
+    <changeSet author="exo-exoer" id="1.0.0-10">
         <createTable tableName="Exoers">
             <column name="id" type="BIGINT" autoIncrement="${autoIncrement}" startWith="1">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EXOER_ENTITY"></constraints>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EXOER_ENTITY"/>
             </column>
             <column name="name" type="NVARCHAR(50)">
                 <constraints nullable="false"/>
@@ -48,17 +48,49 @@
             <append value=" ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci"/>
         </modifySql>
     </changeSet>
-    <changeSet  author="exo-exoer"  id="1.0.0-2">
+    <changeSet  author="exo-exoer"  id="1.0.0-20">
         <modifyDataType
                          columnName="dateOfBirth"
                          newDataType="NVARCHAR(50)"
                          schemaName="public"
                          tableName="Exoers"/>
     </changeSet>
-    <changeSet  author="exo-exoer"  id="1.0.0-3">
+    <changeSet  author="exo-exoer"  id="1.0.0-30">
         <renameTable
                       newTableName="EXOERS"
                       oldTableName="Exoers"
                       schemaName="public"/>
+    </changeSet>
+    <changeSet author="exo-exoer"  id="1.0.0-40">
+        <addColumn tableName="EXOERS">
+            <column name="functionn" type="NVARCHAR(50)" defaultValue="">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="exo-exoer"  id="1.0.0-50">
+        <createTable tableName="Bikes">
+            <column name="id" type="BIGINT" autoIncrement="${autoIncrement}" startWith="1">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BIKES_ENTITY"/>
+            </column>
+            <column name="circulationNmber" type="NVARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="color" type="NVARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="engineSize" type="NVARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="img" type="NVARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bikeDesc" type="NVARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci"/>
+        </modifySql>
     </changeSet>
 </databaseChangeLog>

@@ -55,7 +55,7 @@ public class ExoerServiceRest implements ResourceContainer {
         Exoers a = exoerService.addExoer(exoers);
 
         jsonObject.put("name", a.getName());
-        jsonObject.put("functionn", a.getFunction());
+        jsonObject.put("functionn", a.getFunctionn());
         jsonObject.put("dateOfBirth", a.getDateOfBirth());
 
     } catch (Exception e) {
@@ -66,6 +66,24 @@ public class ExoerServiceRest implements ResourceContainer {
     return Response.ok(jsonObject.toString(), MediaType.APPLICATION_JSON).build();
     
    
+  }
+
+
+  @GET
+  @Path("getOneExoerById/{id}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getOneExoerById(@PathParam("id") String id){
+      Exoers exo = null;
+      try {
+           exo = exoerService.getOneExoerById(Long.parseLong(id));
+      } catch (Exception e) {
+          log.error(e.getMessage());
+          return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                  .entity("An internal error has occurred when trying to fetch one exoer").build();
+      }
+      return Response.ok(exo).build();
+
+
   }
 
   @POST

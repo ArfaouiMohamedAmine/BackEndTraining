@@ -1,7 +1,8 @@
 import app from './components/app.vue';
+import Edit from './components/edit.vue';
 import axios from 'axios';
 import '../css/main.less';
-Vue.use(Vuetify , axios);
+Vue.use(Vuetify , axios,Edit );
 
 const vuetify = new Vuetify({
   dark: true,
@@ -22,5 +23,6 @@ exoi18n.loadLanguageAsync(lang, url)
       render: h => h(app),
       i18n,
       vuetify,
+      Edit,
     }).$mount('#vuetify_webpack_sample');
   });

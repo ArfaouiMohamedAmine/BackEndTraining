@@ -12,8 +12,7 @@ public class MapperExoer {
         {
             res.setId(entity.getId());
             res.setName(entity.getName());
-            res.setFunction(entity.getFunction());
-
+            res.setFunctionn(entity.getFunctionn());
         }
         return res;
     }
