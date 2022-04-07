@@ -7,6 +7,7 @@
   <import>war:/conf/custom-vuetify-extension/bundle-configuration.xml</import>
   <import>war:/conf/custom-vuetify-extension/portal-configuration.xml</import>
   <import>war:/conf/custom-vuetify-extension/services-configuration.xml</import>
+  <import>war:/conf/Exoer/job-configuration.xml</import>
 
 
 </configuration>

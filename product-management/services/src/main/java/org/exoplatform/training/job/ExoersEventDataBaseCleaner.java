@@ -1,5 +1,4 @@
 package org.exoplatform.training.job;
-
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.training.dao.ExoersDAO;
 import org.quartz.DisallowConcurrentExecution;
@@ -10,7 +9,6 @@ import org.exoplatform.services.log.Log;
 /**
  * A job to to clean the data base every minute
  */
-
 @DisallowConcurrentExecution
 public class ExoersEventDataBaseCleaner implements Job {
     @Override
@@ -21,8 +19,6 @@ public class ExoersEventDataBaseCleaner implements Job {
               exoersDAO.deleteAll();
         } catch  (Exception e) {
             LOG.error("Error while computing reminder date of events", e);
-
         }
-
     }
 }
