@@ -7,11 +7,11 @@ import org.exoplatform.services.rest.resource.ResourceContainer;
 import org.exoplatform.training.Entity.Exoers;
 import org.exoplatform.training.dao.ExoersDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExoerService implements ResourceContainer, ExoerServiceInterface {
     private ExoersDAO eggzoodao ;
-
     private static Log log =  ExoLogger.getLogger(ExoerServiceRest.class);
     private ListenerService listenerService ;
     public ExoerService(ExoersDAO eggzodao , ListenerService listenerService ){

@@ -61,7 +61,7 @@
                   <v-btn
                     color="red lighten-1"
                     depressed
-                    @click="sshow(), close();"
+                    @click="saveEdit(item)"
                   >
                     <v-icon left>
                       mdi-edit
@@ -69,12 +69,17 @@
                     Update
                   </v-btn>
                 </v-row>
+               
               </v-list-item-content>
             </v-list-item>
           </v-row>
+           <v-row  >
+                  <EditPop v-show="saveEditBool" ref="childC" 
+                           :save-edit-bool="false" :itemToUpdate="itemToUpdate"/>    
+                </v-row>
         </template>
       </exo-drawer>
-      <v-form v-show="!show">
+      <v-form >
         <v-container>
           <v-row>
             <v-col
@@ -124,7 +129,6 @@
     </main>
     <v-row>
       <v-col>
-        <EditPop v-show="saveEditBool" :save-edit-bool="show" @getSaveBool="saveEditBool"/>    
       </v-col>
     </v-row>
   </v-app>
@@ -137,28 +141,21 @@ export default {
   components: { EditPop },
   data: function() {
     return {
+      itemToUpdate:{},
       errors: [],
       datas  : {},
       items: [],
       idEx: null,
       name : null , 
       functionn : null , 
-      dateOfBirth : null  ,
-      show: false,
       getSaveBool:false,
       searchTf: '',
+      sshow : true,
+      saveEditBool : false,
+      OnlyThisOne: false,
     };
   },
-  computed: {
-    kudosReceiver () {
-      return {
-        receiverId: this.kudosToSend && this.kudosToSend.id,
-        avatar: this.kudosToSend && this.kudosToSend.avatar,
-        profileUrl: this.kudosToSend && this.kudosToSend.profileUrl,
-        fullName: this.kudosToSend && this.kudosToSend.receiverFullName
-      };
-    },
-  },
+
   watch:{
     searchTf(newVal,oldVal){
       this.getOneData(newVal);
@@ -166,9 +163,6 @@ export default {
     }
   },
   methods:{
-    sshow(show){
-      this.show = !show;
-    },
     getAllData(){    axios
       .get('http://localhost:8080/portal/rest/v1/exoers')
       .then(response => {
@@ -178,8 +172,6 @@ export default {
       .get(`http://localhost:8080/portal/rest/v1/exoers/getOneExoerById/${id}`)
       .then(response => {
         this.items = response.data;
-        
-
       });
     console.log(id);
     },
@@ -208,14 +200,16 @@ export default {
 
     open()
     {
-      
       this.$refs.testDrawer.open();
     },
     close()
     {
-      
       this.$refs.testDrawer.close();
-    }
+    },
+    saveEdit(item){
+      this.saveEditBool =!this.saveEditBool;
+      this.itemToUpdate = Object.assign({},item) ;
+    },
   }
 };
 </script>

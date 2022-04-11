@@ -19,7 +19,7 @@
 -->
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.exoplatform.org/xml/ns/kernel_1_3.xsd http://www.exoplatform.org/xml/ns/kernel_1_3.xsd" xmlns="http://www.exoplatform.org/xml/ns/kernel_1_3.xsd">
 
-    <external-component-plugins>
+<!--    <external-component-plugins>
         <target-component>org.exoplatform.services.scheduler.JobSchedulerService</target-component>
         <component-plugin>
             <name>DBSanitizerJob</name>
@@ -32,10 +32,30 @@
                     <property name="jobName" value="DBSantizer" />
                     <property name="groupName" value="Exoers" />
                     <property name="job" value="org.exoplatform.training.job.ExoersEventDataBaseCleaner" />
-                    <!-- Period: each 5 second starting from 0 and each minute starting from 0 scan for db DATA to clean. This shouldn't be modified. -->
+                    &lt;!&ndash; Period: each 5 second starting from 0 and each minute starting from 0 scan for db DATA to clean. This shouldn't be modified. &ndash;&gt;
                     <property name="expression" value="0/5 0/1 * * * ?" />
                 </properties-param>
             </init-params>
         </component-plugin>
     </external-component-plugins>
+
+    <external-component-plugins>
+        <target-component>org.exoplatform.services.scheduler.JobSchedulerService</target-component>
+        <component-plugin>
+            <name>DBCounterJob</name>
+            <set-method>addCronJob</set-method>
+            <type>org.exoplatform.services.scheduler.CronJob</type>
+            <description>A cron job to Count the data in the Exoer Table </description>
+            <init-params>
+                <properties-param>
+                    <name>cronjob.info</name>
+                    <property name="jobName" value="DBCounterJob" />
+                    <property name="groupName" value="Exoers" />
+                    <property name="job" value="org.exoplatform.training.job.ExoersEventDataBaseCounter" />
+                    &lt;!&ndash; Period: each 5 second starting from 0 and each minute starting from 0 scan for db DATA to count. This shouldn't be modified. &ndash;&gt;
+                    <property name="expression" value="0/5 0/1 * * * ?" />
+                </properties-param>
+            </init-params>
+        </component-plugin>
+    </external-component-plugins>-->
 </configuration>
